@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://DefaultButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://StarParticles.tscn" type="PackedScene" id=2]
+[ext_resource path="res://StartMenu.gd" type="Script" id=3]
+
+[node name="StartMenu" type="Node"]
+script = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Particles2D" parent="." instance=ExtResource( 2 )]
+
+[node name="StartButton" parent="." instance=ExtResource( 1 )]
+margin_left = 100.0
+margin_right = 220.0
+text = "Start (Space)"
+
+[node name="QuitButton" parent="." instance=ExtResource( 1 )]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 220.0
+margin_bottom = 120.0
+text = "Quit (Esc)"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
