@@ -1,41 +1,42 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Ship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
-[ext_resource path="res://EnemySpawner.tscn" type="PackedScene" id=3]
-[ext_resource path="res://StarParticles.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Enemy/EnemySpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/StarBackground.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Misc/EnemyDetect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Misc/GameBoundries.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GUI/HeartsUI/HeartsUI.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Node" groups=["World"]]
 script = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="Particles2D" parent="." instance=ExtResource( 4 )]
-
-[node name="Ship" parent="." instance=ExtResource( 1 )]
-position = Vector2( 58, 90 )
-z_index = 1
-
-[node name="EnemySpawner" parent="." instance=ExtResource( 3 )]
-position = Vector2( 340, 0 )
-
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="ScoreLabel" type="Label" parent="GUI"]
 anchor_right = 1.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 5 )
 text = "Score = 0"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[connection signal="player_death" from="Ship" to="." method="_on_Ship_player_death"]
+[node name="HealthUI" parent="GUI" instance=ExtResource( 8 )]
+
+[node name="StarBackground" parent="." instance=ExtResource( 4 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 58, 90 )
+
+[node name="EnemySpawner" parent="." instance=ExtResource( 3 )]
+position = Vector2( 340, 0 )
+
+[node name="GameBoundries" parent="." instance=ExtResource( 7 )]
+
+[node name="EnemyDetect" parent="." instance=ExtResource( 6 )]
+
+[connection signal="player_death" from="Player" to="." method="_on_Player_death"]
+[connection signal="player_dmg" from="Player" to="GUI/HealthUI" method="_on_Player_player_dmg"]
+[connection signal="area_entered" from="EnemyDetect" to="." method="_on_EnemyDetect_area_entered"]

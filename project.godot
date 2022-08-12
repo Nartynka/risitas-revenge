@@ -8,16 +8,38 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "RichTextEffect",
+"class": "RichTextWoo",
+"language": "GDScript",
+"path": "res://Intro/WooEffect.gd"
+} ]
+_global_script_class_icons={
+"RichTextWoo": ""
+}
+
 [application]
 
-config/name="space shooter"
-run/main_scene="res://StartMenu.tscn"
-config/icon="res://icon.png"
+config/name="Zemsta Risitas"
+run/main_scene="res://Intro/IntroScreen.tscn"
+boot_splash/image="res://black_square.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://Enemy/risitas_1.png"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://favicon.ico"
+
+[audio]
+
+default_bus_layout=""
 
 [autoload]
 
-Music="*res://Music.tscn"
-SaveAndLoad="*res://SaveAndLoad.gd"
+Music="*res://Autoloads/Music.tscn"
+SaveAndLoad="*res://Autoloads/SaveAndLoad.gd"
+Effects="*res://Autoloads/Effects.gd"
+SceneChanger="*res://Misc/SceneChange.tscn"
 
 [display]
 
@@ -39,9 +61,10 @@ ui_up={
 
 [layer_names]
 
-2d_physics/layer_1="Ship"
+2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Bullet"
+2d_physics/layer_4="Game Boundries"
 
 [physics]
 

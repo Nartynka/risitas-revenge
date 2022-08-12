@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Player/emil_close.png" type="Texture" id=3]
+[ext_resource path="res://Player/emil_open.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "openMouth",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 243.277
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.07, 0.07 )
+frames = SubResource( 1 )
+animation = "openMouth"
+frame = 7
+speed_scale = 1.5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3, 0 )
+scale = Vector2( 0.07, 0.07 )
+shape = SubResource( 2 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+scale = Vector2( 0.07, 0.07 )
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PoolVector2Array( -347.479, -69.9639, -322.852, -56.0547, -300, -50, -250, -50, -200, -50, -175.586, -42.1875, -175, -50, -163.086, -98.4375, -150, -125, -116.016, -149.219, -95.3125, -175.977, -75, -200, -50, -250, -0.78125, -270.313, 100, -275, 175, -225, 200, -175, 225, -100, 225, -50, 270.083, -46.5079, 299.467, -44.8525, 311.468, -34.5062, 309.399, -6.57111, 294.819, 24.6055, 258.988, 56.8213, 240.792, 115.794, 226.618, 130.538, 208.956, 137.334, 194.628, 144.319, 188.476, 158.837, 179.297, 170.117, 174.805, 186.523, 161.914, 187.891, 161.328, 210.352, 150, 225, 125, 250, 93.5025, 264.926, 51.0067, 277.961, -10.5211, 281.35, -52.4955, 279.004, -85.4733, 252.363, -113.822, 239.947, -122.927, 223.6, -144.654, 197.32, -150, 175, -167.188, 154.688, -168.75, 123.047, -170.851, 48.0999, -184.099, 39.1166, -204.562, 33.5359, -250.447, 29.5054, -296.333, 18.654, -323.609, -3.03066, -341.081, -31.8218, -347.656, -50.1953 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
